@@ -1,0 +1,104 @@
+Data exploration
+
+--1 – Preview Orders Table
+Purpose: Inspect the structure and sample records of the Orders table.
+
+SELECT TOP (10)
+    [Order ID],
+    [Order Date],
+    [Sales],
+    [Quantity],
+    [Discount],
+    [Discount Level]
+FROM [dbo].[Orders];
+
+--2 – Total Number of Records and Unique Orders
+Purpose: Determine the number of transaction records and unique orders.
+
+SELECT
+    COUNT(*) AS [Total Records],
+    COUNT(DISTINCT [Order ID]) AS [Total Orders]
+FROM [dbo].[Orders];
+
+
+--3 – Date Range Analysis
+Purpose: Identify the minimum and maximum order dates.
+
+SELECT
+    MIN([Order Date]) AS [First Order Date],
+    MAX([Order Date]) AS [Last Order Date]
+FROM [dbo].[Orders];
+
+--4 – Products Distribution by Category
+Purpose: Examine the number of products and subcategories within each category.
+
+SELECT
+    [Category],
+    COUNT(*) AS [Product Records],
+    COUNT(DISTINCT [Sub Category]) AS [Subcategories],
+    COUNT(DISTINCT [Product Name]) AS [Unique Products]
+FROM [dbo].[Products]
+GROUP BY [Category]
+ORDER BY [Category];
+
+--5 – Subcategory Distribution
+Purpose: Identify the number of products within each subcategory.
+
+SELECT
+    [Category],
+    [SubCategory],
+    COUNT(DISTINCT [Product Name]) AS [Number of Products]
+FROM [dbo].[Products]
+GROUP BY
+    [Category],
+    [Sub Category]
+ORDER BY
+    [Category],
+    [Number of Products] DESC;
+
+_______________________________________
+
+Data Quality & Validation
+
+--6 – Identify Missing Values
+Purpose: Check for NULL values in important columns of the Orders table.
+
+SELECT
+    COUNT(*) AS [Total Records],
+
+    SUM(CASE
+        WHEN [Order ID] IS NULL THEN 1
+        ELSE 0
+    END) AS [Missing Order IDs],
+
+    SUM(CASE
+        WHEN [Order Date] IS NULL THEN 1
+        ELSE 0
+    END) AS [Missing Order Dates],
+
+    SUM(CASE
+        WHEN [Sales] IS NULL THEN 1
+        ELSE 0
+    END) AS [Missing Sales],
+
+    SUM(CASE
+        WHEN [Quantity] IS NULL THEN 1
+        ELSE 0
+    END) AS [Missing Quantities],
+
+    SUM(CASE
+        WHEN [Discount] IS NULL THEN 1
+        ELSE 0
+    END) AS [Missing Discounts]
+
+FROM [dbo].[Orders];
+
+
+–7 List all unique discount values
+
+SELECT DISTINCT
+    [Discount]
+FROM [dbo].[Orders]
+ORDER BY
+    [Discount];
+
