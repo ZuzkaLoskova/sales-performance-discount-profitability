@@ -1,0 +1,37 @@
+# Windows system files
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Excel temporary files
+~$*.xlsx
+~$*.xls
+~$*.xlsm
+
+# SQL Server database files and backups
+*.mdf
+*.ldf
+*.ndf
+*.bak
+*.trn
+
+# Temporary and log files
+*.tmp
+*.log
+
+# Visual Studio temporary files
+.vs/
+*.suo
+*.user
+
+# Local configuration files
+.env
+.env.*
+
+# Raw data - keep directory placeholder
+/data/raw/*
+!/data/raw/.gitkeep
+
+# Processed data - keep directory placeholder
+/data/processed/*
+!/data/processed/.gitkeep
